@@ -9,14 +9,11 @@ import NextBtn from "../assets/images/icon-next.svg";
 import "../styles/Hero.css";
 import shortid from "shortid";
 import { useDispatch } from "react-redux";
-// call the action I will use
 import { add_items } from "../actions";
 
 const Hero = () => {
-	// declare dispatch function
 	const dispatch = useDispatch();
 
-	// increase or decrease desired item quantity before checkout
 	const [itemQuantity, setItemQuantity] = useState(0);
 	const incNum = () => {
 		setItemQuantity(itemQuantity + 1);
@@ -39,74 +36,58 @@ const Hero = () => {
 		}
 	};
 
-	// add item to cart if quantity is more than 0
 	const addItem = () => {
 		if (itemQuantity === 0) {
 			alert("Please select a quantity");
 			return;
 		}
-		//update array id and reset item quantity
 		setItems({ ...items, id: shortid.generate() });
 		setItemQuantity(0);
-		// execute add item function to redux STORE
 		dispatch(add_items(items));
 	};
 
-	//cart item object
 	const [items, setItems] = useState({
 		id: shortid.generate(),
 		added_items: 0,
 		total_price: 0,
 	});
 
-	// desktop gallery modal
 	const [photoModal, setPhotoModal] = useState(false);
 	const togglePhotoModal = () => {
 		setPhotoModal(!photoModal);
 		setActiveModalImage(activeImage);
 	};
 
-	// set active images in modal and preview view
 	const galleryArray = [Image1, Image2, Image3, Image4];
 
-	// set active image
 	const [activeImage, setActiveImage] = useState(galleryArray[0]);
 	const adjustActiveImage = (index) => {
 		setActiveImage(index);
-		// what ever the user's image was before opening modal will display as active modal image
 		setActiveModalImage(index);
 	};
 
-	// set active modal image
 	const [activeModalImage, setActiveModalImage] = useState(activeImage);
 	const adjustActiveModalImage = (index) => {
 		setActiveModalImage(index);
 	};
 
-	// navigation button function
-	// mobile image nav buttons
+
 	const [mobileImgNav, setMobileImgNav] = useState(0);
 	const mobileNextImg = (n) => {
-		// map through the image to define the similar image in the array
 		let mapImg = galleryArray.map((img) => {
 			return activeImage === img ? (img = true) : null;
 		});
-		// let the number for the mobile image equal the index number in the array
 		let mobileImgNav = mapImg.indexOf(true);
-		// set the variable show to equal the sum which is the position in the array
 		let show = mobileImgNav + n;
 		if (show < 0) {
 			show = 3;
 		} else if (show > 3) {
 			show = 0;
 		}
-		// when user clicks on the images, the position from the array will update
 		setMobileImgNav(show);
-		// display as active image
 		setActiveImage(galleryArray[show]);
 	};
 
-	// desktop image modal
 	const [imageNav, setImgNav] = useState(0);
 	const nextImg = (n) => {
 		let mapImg = galleryArray.map((img) => {

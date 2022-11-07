@@ -7,11 +7,8 @@ import RightNav from "./CartProfile";
 import "../styles/Navbar.css";
 
 export default function Navbar() {
-	// working in mobile first so implement toggle
 	const [openMenu, setOpenMenu] = useState(false);
 
-	//set the opposite of what it currently is
-	//if it's false, it'll become true
 	const toggleNavbar = () => {
 		setOpenMenu(!openMenu);
 	};

@@ -7,20 +7,15 @@ import { useSelector } from "react-redux";
 
 export default function RightNav() {
 	const cartItems = useSelector((state) => state.cartItems);
-
-	// open cart model
 	const [openCart, setOpenCart] = useState(false);
 	const [openProfile, setOpenProfile] = useState(false);
 
-	// close cart/profile modal on outside click.
 	const cartRef = useRef();
 	const profileRef = useRef();
 	const cartBtnRef = useRef();
 	const profileBtnRef = useRef();
 	useEffect(() => {
 		const checkIfClickedOutsideCart = (e) => {
-			// If the menu is open and the clicked target is not within the menu,
-			// then close the menu
 			if (
 				openCart &&
 				cartRef.current &&
@@ -32,8 +27,7 @@ export default function RightNav() {
 		};
 
 		const checkIfClickedOutsideProfile = (e) => {
-			// If the menu is open and the clicked target is not within the menu,
-			// then close the menu
+			
 			if (
 				openProfile &&
 				profileRef.current &&
@@ -49,7 +43,7 @@ export default function RightNav() {
 		document.addEventListener("click", checkIfClickedOutsideProfile);
 
 		return () => {
-			// Cleanup the event listener
+
 			document.removeEventListener("click", checkIfClickedOutsideCart);
 
 			document.removeEventListener("click", checkIfClickedOutsideProfile);
